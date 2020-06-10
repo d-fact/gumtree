@@ -133,6 +133,14 @@ public class TextDiff extends AbstractDiffClient<TextDiff.Options> {
                     throws IOException {
                 return ActionsIoUtils.toJson(sctx, actions, mappings);
             }
+        },
+        TA {
+            @Override
+            ActionsIoUtils.ActionSerializer getSerializer(TreeContext sctx, List<Action> actions, MappingStore mappings)
+                    throws IOException {
+                return ActionsIoUtils.toTa(sctx, actions, mappings);
+            }
+
         };
 
         abstract ActionsIoUtils.ActionSerializer getSerializer(TreeContext sctx, List<Action> actions,

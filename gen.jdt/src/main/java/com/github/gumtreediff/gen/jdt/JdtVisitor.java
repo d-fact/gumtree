@@ -25,8 +25,8 @@ package com.github.gumtreediff.gen.jdt;
 import org.eclipse.jdt.core.dom.*;
 
 public class JdtVisitor  extends AbstractJdtVisitor {
-    public JdtVisitor() {
-        super();
+    public JdtVisitor(CompilationUnit cu) {
+        super(cu);
     }
 
     @Override

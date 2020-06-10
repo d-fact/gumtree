@@ -36,7 +36,7 @@ import java.util.*;
 
 public abstract class AbstractSrcmlTreeGenerator extends TreeGenerator {
 
-    private static final String SRCML_CMD = System.getProperty("gt.srcml.path", "srcml");
+    private static final String SRCML_CMD = System.getProperty("gt.srcml.path", "cindex-dump");
 
     private static final QName LINE = new  QName("http://www.srcML.org/srcML/position", "line", "pos");
 
@@ -52,7 +52,7 @@ public abstract class AbstractSrcmlTreeGenerator extends TreeGenerator {
     private TreeContext context;
 
     @Override
-    public TreeContext generate(Reader r) throws IOException {
+    public TreeContext generate(Reader r, String suffix) throws IOException {
         lr = new LineReader(r);
         String xml = getXml(lr);
         return getTreeContext(xml);
@@ -160,15 +160,16 @@ public abstract class AbstractSrcmlTreeGenerator extends TreeGenerator {
                 line = br.readLine();
             }
         }
-        ProcessBuilder b = new ProcessBuilder(getArguments(f.getAbsolutePath()));
+        // ProcessBuilder b = new ProcessBuilder(getArguments(f.getAbsolutePath()));
+        ProcessBuilder b = new ProcessBuilder(SRCML_CMD, f.getAbsolutePath());
         b.directory(f.getParentFile());
         Process p = b.start();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"))) {
             StringBuilder buf = new StringBuilder();
             // TODO Why do we need to read and bufferize everything, when we could/should only use generateFromStream
             String line = null;
             while ((line = br.readLine()) != null)
-                buf.append(line + System.lineSeparator());
+                buf.append(line).append(System.lineSeparator());
             p.waitFor();
             if (p.exitValue() != 0) throw new RuntimeException(buf.toString());
             r.close();

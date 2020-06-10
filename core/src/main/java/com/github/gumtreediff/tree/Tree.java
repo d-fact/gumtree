@@ -35,6 +35,7 @@ public class Tree extends AbstractTree implements ITree {
     private int pos;
     private int length;
     // End position
+    private int lineNum;
 
     private AssociationMap metadata;
 
@@ -118,6 +119,11 @@ public class Tree extends AbstractTree implements ITree {
     }
 
     @Override
+    public int getLineNum() {
+        return lineNum;
+    }
+
+    @Override
     public int getType() {
         return type;
     }
@@ -161,6 +167,11 @@ public class Tree extends AbstractTree implements ITree {
     @Override
     public void setType(int type) {
         this.type = type;
+    }
+
+    @Override
+    public void setLineNum(int lineNum) {
+        this.lineNum = lineNum;
     }
 
     @Override

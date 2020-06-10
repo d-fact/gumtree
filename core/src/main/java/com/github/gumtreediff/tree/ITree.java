@@ -170,6 +170,10 @@ public interface ITree {
 
     void setLength(int length);
 
+    int getLineNum();
+
+    void setLineNum(int lineNum);
+
     /**
      * @return the absolute character index where the tree ends
      */
@@ -224,6 +228,8 @@ public interface ITree {
     String toTreeString();
 
     String toPrettyString(TreeContext ctx);
+
+    String toPrettyString(TreeContext ctx, boolean printLabel);
 
     Object getMetadata(String key);
 

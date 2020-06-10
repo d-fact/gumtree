@@ -34,7 +34,7 @@ import java.io.Reader;
 public class RhinoTreeGenerator extends TreeGenerator {
 
     @Override
-    public TreeContext generate(Reader r) throws IOException {
+    public TreeContext generate(Reader r, String suffix) throws IOException {
         CompilerEnvirons env = new CompilerEnvirons();
         env.setRecordingLocalJsDocComments(true);
         env.setAllowSharpComments(true);

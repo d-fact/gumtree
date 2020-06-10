@@ -33,8 +33,8 @@ import java.io.Reader;
 public class XmlTreeGenerator extends AbstractAntlr3TreeGenerator<XMLLexer, XMLParser> {
 
     @Override
-    public TreeContext generate(Reader file) throws IOException {
-        TreeContext ctx = super.generate(file);
+    public TreeContext generate(Reader file, String suffix) throws IOException {
+        TreeContext ctx = super.generate(file, suffix);
         ITree t = ctx.getRoot();
 
         for (ITree c: t.getTrees()) { // Prune top level empty pcdata

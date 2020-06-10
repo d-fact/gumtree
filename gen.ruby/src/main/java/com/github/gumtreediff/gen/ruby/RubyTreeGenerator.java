@@ -37,7 +37,7 @@ import java.io.Reader;
 public class RubyTreeGenerator extends TreeGenerator {
 
     @Override
-    public TreeContext generate(Reader r) throws IOException {
+    public TreeContext generate(Reader r, String suffix) throws IOException {
         Parser p = new Parser();
         CompatVersion version = CompatVersion.RUBY2_0;
         ParserConfiguration config = new ParserConfiguration(0, version);

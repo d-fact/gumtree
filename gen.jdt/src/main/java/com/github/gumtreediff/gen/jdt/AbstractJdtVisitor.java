@@ -32,6 +32,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import com.github.gumtreediff.gen.jdt.cd.EntityType;
 import com.github.gumtreediff.tree.ITree;
 import com.github.gumtreediff.tree.TreeContext;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 
 public abstract class AbstractJdtVisitor extends ASTVisitor {
 
@@ -39,8 +40,11 @@ public abstract class AbstractJdtVisitor extends ASTVisitor {
 
     private Deque<ITree> trees = new ArrayDeque<>();
 
-    public AbstractJdtVisitor() {
+    private CompilationUnit cu;
+
+    public AbstractJdtVisitor(CompilationUnit cu) {
         super(true);
+        this.cu = cu;
     }
 
     public TreeContext getTreeContext() {
@@ -70,7 +74,8 @@ public abstract class AbstractJdtVisitor extends ASTVisitor {
             ITree parent = trees.peek();
             t.setParentAndUpdateChildren(parent);
         }
-
+        int startLineNum = cu.getLineNumber(startPosition);
+        t.setLineNum(startLineNum);
         trees.push(t);
     }
 

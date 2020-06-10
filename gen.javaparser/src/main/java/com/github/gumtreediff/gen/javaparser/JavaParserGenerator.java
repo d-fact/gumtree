@@ -34,7 +34,7 @@ import java.io.Reader;
 public class JavaParserGenerator extends TreeGenerator {
 
     @Override
-    public TreeContext generate(Reader r) throws IOException {
+    public TreeContext generate(Reader r, String suffix) throws IOException {
         LineReader lr = new LineReader(r);
         CompilationUnit cu = JavaParser.parse(lr);;
         JavaParserVisitor v = new JavaParserVisitor(lr);

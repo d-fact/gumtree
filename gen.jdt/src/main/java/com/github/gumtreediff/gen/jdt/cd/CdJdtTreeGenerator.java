@@ -23,11 +23,12 @@ package com.github.gumtreediff.gen.jdt.cd;
 import com.github.gumtreediff.gen.Register;
 import com.github.gumtreediff.gen.jdt.AbstractJdtVisitor;
 import com.github.gumtreediff.gen.jdt.AbstractJdtTreeGenerator;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 
 @Register(id = "java-jdt-cd")
 public class CdJdtTreeGenerator extends AbstractJdtTreeGenerator {
     @Override
-    protected AbstractJdtVisitor createVisitor() {
-        return new CdJdtVisitor();
+    protected AbstractJdtVisitor createVisitor(CompilationUnit cu) {
+        return new CdJdtVisitor(cu);
     }
 }

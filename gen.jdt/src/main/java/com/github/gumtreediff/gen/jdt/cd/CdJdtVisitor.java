@@ -43,6 +43,10 @@ public class CdJdtVisitor extends AbstractJdtVisitor {
     private boolean fEmptyJavaDoc;
     private boolean fInMethodDeclaration;
 
+    public CdJdtVisitor(CompilationUnit cu) {
+        super(cu);
+    }
+
     @Override
     public boolean visit(Block node) {
         // skip block as it is not interesting

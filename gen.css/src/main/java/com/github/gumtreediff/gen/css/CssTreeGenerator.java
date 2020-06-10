@@ -43,7 +43,7 @@ import java.io.*;
 public class CssTreeGenerator extends TreeGenerator {
 
     @Override
-    public TreeContext generate(Reader r) throws IOException {
+    public TreeContext generate(Reader r, String suffix) throws IOException {
         LineReader lr = new LineReader(r);
         CSSCharStream s = new CSSCharStream(new LineReader(lr));
         s.setTabSize(1);

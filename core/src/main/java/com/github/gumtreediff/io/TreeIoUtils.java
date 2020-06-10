@@ -631,7 +631,7 @@ public final class TreeIoUtils {
         }
 
         @Override
-        protected TreeContext generate(Reader source) throws IOException {
+        protected TreeContext generate(Reader source, String suffix) throws IOException {
             XMLInputFactory fact = XMLInputFactory.newInstance();
             TreeContext context = new TreeContext();
             try {

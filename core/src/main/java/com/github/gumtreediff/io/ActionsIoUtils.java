@@ -41,6 +41,17 @@ public final class ActionsIoUtils {
     private ActionsIoUtils() {
     }
 
+    public static ActionSerializer toTa(TreeContext sctx, List<Action> actions,
+                                          MappingStore mappings) throws IOException {
+        return new ActionSerializer(sctx, mappings, actions) {
+
+            @Override
+            protected ActionFormatter newFormatter(TreeContext ctx, Writer writer) throws Exception {
+                return new TaFormatter(ctx, writer);
+            }
+        };
+    }
+
     public static ActionSerializer toText(TreeContext sctx, List<Action> actions,
                                           MappingStore mappings) throws IOException {
         return new ActionSerializer(sctx, mappings, actions) {
@@ -242,6 +253,88 @@ public final class ActionsIoUtils {
 
         private void end(ITree node) throws XMLStreamException {
 //            writer.writeEndElement();
+        }
+    }
+
+    static class TaFormatter implements ActionFormatter {
+        final Writer writer;
+        final TreeContext context;
+        String placeholder = "default";
+
+        TaFormatter(TreeContext ctx, Writer writer) {
+            this.context = ctx;
+            this.writer = writer;
+        }
+
+        @Override
+        public void startOutput() throws Exception {
+        }
+
+        @Override
+        public void endOutput() throws Exception {
+        }
+
+        @Override
+        public void startMatches() throws Exception {
+        }
+
+        @Override
+        public void match(ITree srcNode, ITree destNode) throws Exception {
+            // matchings are not needed
+            //write("Match %s to %s", toS(srcNode), toS(destNode));
+        }
+
+        @Override
+        public void endMatches() throws Exception {
+        }
+
+        @Override
+        public void startActions() throws Exception {
+            write("FACT TUPLE :");
+        }
+
+        @Override
+        public void insertRoot(ITree node) throws Exception {
+            write("Insert %s root", toS(node));
+            //write("Insert root %s", toS(node));
+        }
+
+        @Override
+        public void insertAction(ITree node, ITree parent, int index) throws Exception {
+            // write("Insert %s into %s at %d", toS(node), toS(parent), index);
+            write("Insert %s %s", toS(node), toS(parent));
+        }
+
+        @Override
+        public void moveAction(ITree src, ITree dst, int position) throws Exception {
+            write("Move %s into %s at %d", toS(src), toS(dst), position);
+        }
+
+        @Override
+        public void updateAction(ITree src, ITree dst) throws Exception {
+            write("Update %s %s", toS(src), dst.getLabel());
+        }
+
+        @Override
+        public void deleteAction(ITree node) throws Exception {
+            write("Delete %s %s", toS(node), placeholder);
+        }
+
+        @Override
+        public void endActions() throws Exception {
+        }
+
+        private void write(String fmt, Object... objs) throws IOException {
+            writer.append(String.format(fmt, objs));
+            writer.append("\n");
+        }
+
+        private String toS(ITree node) {
+            return String.format("%s", node.toPrettyString(context, false));
+        }
+
+        private String toS_label(ITree node) {
+            return String.format("%s", node.toPrettyString(context, true));
         }
     }
 

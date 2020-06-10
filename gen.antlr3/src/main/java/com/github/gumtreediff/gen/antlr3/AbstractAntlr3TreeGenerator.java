@@ -72,7 +72,7 @@ public abstract class AbstractAntlr3TreeGenerator<L extends Lexer, P extends Par
     }
 
     @Override
-    public TreeContext generate(Reader r) throws IOException {
+    public TreeContext generate(Reader r, String suffix) throws IOException {
         try {
             CommonTree ct = getStartSymbol(r);
             TreeContext context = new TreeContext();

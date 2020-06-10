@@ -26,25 +26,50 @@ import org.atteo.classindex.IndexSubclasses;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.apache.commons.io.FilenameUtils;
 
 @IndexSubclasses
 public abstract class TreeGenerator {
 
-    protected abstract TreeContext generate(Reader r) throws IOException;
+    // protected abstract TreeContext generate(Reader r) throws IOException;
 
-    public TreeContext generateFromReader(Reader r) throws IOException {
-        TreeContext ctx = generate(r);
+    protected abstract TreeContext generate(Reader r, String suffix) throws IOException;
+
+    protected TreeContext generate(String path, String suffix) throws IOException {
+        Reader r = Files.newBufferedReader(Paths.get(path), Charset.forName("UTF-8"));
+        return generate(r, suffix);
+    }
+
+    public TreeContext generateFromReader(Reader r, String suffix) throws IOException {
+        TreeContext ctx = generate(r, suffix);
         ctx.validate();
         return ctx;
     }
 
+    public TreeContext generateFromReader(Reader r) throws IOException {
+        TreeContext ctx = generate(r, "");
+        ctx.validate();
+        return ctx;
+    }
+
+    /*
     public TreeContext generateFromFile(String path) throws IOException {
-        return generateFromReader(Files.newBufferedReader(Paths.get(path), Charset.forName("UTF-8")));
+        return generateFromReader(Files.newBufferedReader(Paths.get(path), Charset.forName("UTF-8")),
+                "." + FilenameUtils.getExtension(path));
+    }
+    */
+
+    public TreeContext generateFromFile(String path) throws IOException {
+        TreeContext ctx = generate(path, "." + FilenameUtils.getExtension(path));
+        ctx.validate();
+        return ctx;
     }
 
     public TreeContext generateFromFile(File file) throws IOException {
-        return generateFromReader(Files.newBufferedReader(file.toPath(), Charset.forName("UTF-8")));
+        return generateFromReader(Files.newBufferedReader(file.toPath(), Charset.forName("UTF-8")),
+                "." + FilenameUtils.getExtension(file.getPath()));
     }
 
     public TreeContext generateFromStream(InputStream stream) throws IOException {

@@ -263,6 +263,16 @@ public abstract class AbstractTree implements ITree {
             return ctx.getTypeLabel(this);
     }
 
+    @Override
+    public String toPrettyString(TreeContext ctx, boolean printLabel) {
+        if (!printLabel)
+            // print type only, w/o label
+            return ctx.getTypeLabel(this);
+        else
+            // follow original rule: print "type:label" if label exists
+            return toPrettyString(ctx);
+    }
+
     public static class FakeTree extends AbstractTree {
         public FakeTree(ITree... trees) {
             children = new ArrayList<>(trees.length);
@@ -314,6 +324,11 @@ public abstract class AbstractTree implements ITree {
         }
 
         @Override
+        public int getLineNum() {
+            throw unsupportedOperation();
+        }
+
+        @Override
         public int getType() {
             return -1;
         }
@@ -349,7 +364,17 @@ public abstract class AbstractTree implements ITree {
         }
 
         @Override
+        public void setLineNum(int lineNum) {
+            throw unsupportedOperation();
+        }
+
+        @Override
         public String toPrettyString(TreeContext ctx) {
+            return "FakeTree";
+        }
+
+        @Override
+        public String toPrettyString(TreeContext ctx, boolean printLabel) {
             return "FakeTree";
         }
 

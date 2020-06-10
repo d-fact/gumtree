@@ -1,9 +1,16 @@
 # GumTree
 
-## Status
+This repo is forked from [GumTree](https://github.com/GumTreeDiff/gumtree/).
 
-* Master branch: ![Build Status](https://travis-ci.org/GumTreeDiff/gumtree.svg?branch=master) [![Coverage Status](https://coveralls.io/repos/github/GumTreeDiff/gumtree/badge.svg?branch=master)](https://coveralls.io/github/GumTreeDiff/gumtree?branch=master)
-* Develop branch: ![Build Status](https://travis-ci.org/GumTreeDiff/gumtree.svg?branch=develop) [![Coverage Status](https://coveralls.io/repos/github/GumTreeDiff/gumtree/badge.svg?branch=develop)](https://coveralls.io/github/GumTreeDiff/gumtree?branch=develop)
+We mainly add ``TAFormatter`` to output atomic changes in Tuple-Attribute formats, which actually make GumTree a
+inter-version facts extractor for multiple languages, thanks to the multiple languages support of GumTree.
+We also fix some issues and replace the C parser used.
+Currently the GumTree code in this repo is behind the development in official repo (``develop`` branch),
+we may merge upstream update in the future.
+
+Following contents come from the original repo.
+
+---
 
 ## Description
 

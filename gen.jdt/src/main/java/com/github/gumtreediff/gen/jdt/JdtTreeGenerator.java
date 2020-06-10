@@ -23,13 +23,14 @@ package com.github.gumtreediff.gen.jdt;
 
 import com.github.gumtreediff.gen.Register;
 import com.github.gumtreediff.gen.Registry;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 
 @Register(id = "java-jdt", accept = "\\.java$", priority = Registry.Priority.MAXIMUM)
 public class JdtTreeGenerator extends AbstractJdtTreeGenerator {
 
     @Override
-    protected AbstractJdtVisitor createVisitor() {
-        return new JdtVisitor();
+    protected AbstractJdtVisitor createVisitor(CompilationUnit cu) {
+        return new JdtVisitor(cu);
     }
 
 }

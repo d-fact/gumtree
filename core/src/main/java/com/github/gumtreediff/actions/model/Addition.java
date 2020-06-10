@@ -29,10 +29,13 @@ public abstract class Addition extends Action {
 
     protected int pos;
 
+    protected int lineNum;
+
     public Addition(ITree node, ITree parent, int pos) {
         super(node);
         this.parent = parent;
         this.pos = pos;
+        this.lineNum = node.getLineNum();
     }
 
     public ITree getParent() {
@@ -45,7 +48,8 @@ public abstract class Addition extends Action {
 
     @Override
     public String toString() {
-        return getName() + " " + node.toShortString() + " to " + parent.toShortString() + " at " + pos;
+        return getName() + " " + node.toShortString() + " to " + parent.toShortString() + " at " + pos + " at line "
+                + this.lineNum;
     }
 
     @Override

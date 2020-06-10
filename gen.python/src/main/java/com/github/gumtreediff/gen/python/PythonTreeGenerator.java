@@ -55,7 +55,7 @@ public class PythonTreeGenerator extends TreeGenerator {
     private TreeContext context;
 
     @Override
-    public TreeContext generate(Reader r) throws IOException {
+    public TreeContext generate(Reader r, String suffix) throws IOException {
         lr = new LineReader(r);
         String xml = getXml(lr);
         return getTreeContext(xml);
